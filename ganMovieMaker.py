@@ -23,7 +23,7 @@ if not os.path.exists(workdir):
 
 def main():
     print("Starting program")
-    keysList = [filename[10:len(filename)-5], filename[10:len(filename)-5]]
+    keysList = [,]
     durations = [1, 1]
 
         # Calculating frame number from transition duration
