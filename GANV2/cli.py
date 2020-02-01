@@ -13,13 +13,15 @@ def main(arguments=None):
     print('Loading bigGAN...')
     gan = biggan.BigGAN()
 
-    for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANV2/jsonStore'):
+    #for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANV2/jsonStore'):
+    for root, _, files in os.walk('/jsonStore'):
         len(files)
 
     compteur = len(files)
 
     for i in range(compteur):
-        data = pd.read_json('/home/fabrice/PycharmProjects/GANV2/jsonStore/' + str(i) + '.json', lines=True)
+        #data = pd.read_json('/home/fabrice/PycharmProjects/GANV2/jsonStore/' + str(i) + '.json', lines=True)
+        data = pd.read_json('/jsonStore/' + str(i) + '.json', lines=True)
 
         z_seq = data['latent']
         z_seq = z_seq.tolist()
@@ -33,12 +35,14 @@ def main(arguments=None):
 
         label_seq.shape = (1, 1000)
 
-        saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANV2/images", prefix=i)
+        #saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANV2/images", prefix=i)
+        saver = image_utils.ImageSaver(output_dir="/images", prefix=i)
         gan.sample(z_seq, label_seq, save_callback=saver.save)
 
     print('Done.')
 
-    workdir = "/home/fabrice/PycharmProjects/GANV2/images"
+    #workdir = "/home/fabrice/PycharmProjects/GANV2/images"
+    workdir = "/images"
     outputVideo = "video.mp4"
     if not os.path.exists(workdir):
         os.makedirs(workdir)

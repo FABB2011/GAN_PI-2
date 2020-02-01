@@ -12,7 +12,8 @@ def new_json(my_list, file_name):
         json.dump(data, outfile)
 
 
-rate, audio = wavfile.read('/home/fabrice/PycharmProjects/GANV2/audioFiles/House Fire Alarm-SoundBible.com-1609046789.wav')
+#rate, audio = wavfile.read('/home/fabrice/PycharmProjects/GANV2/audioFiles/House Fire Alarm-SoundBible.com-1609046789.wav')
+rate, audio = wavfile.read('/audioFiles/House Fire Alarm-SoundBible.com-1609046789.wav')
 duration = len(audio)/rate
 audio = np.mean(audio, axis=1)
 frame_rate = 60
