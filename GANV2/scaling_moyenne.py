@@ -14,44 +14,57 @@ def new_json(my_list, file_name):
         json.dump(data, outfile)
 
 
-#rate, audio = wavfile.read('/home/fabrice/PycharmProjects/GANV2/audioFiles/House Fire Alarm-SoundBible.com-1609046789.wav')
-rate, audio = wavfile.read(dir_path+'/audioFiles/sine.wav')
-duration = len(audio)/rate
+rate, audio = wavfile.read('/home/fabrice/PycharmProjects/GANV2/audioFiles/sine.wav')
 # audio = np.mean(audio, axis=1)
+duration = len(audio)/rate
+
 frame_rate = 60
 images = int(duration*frame_rate)
+
 div = rate//frame_rate
 
-data = abs(np.fft.rfft(audio[div * 0:div * (0+1)]))
-w, h = len(data), 669
-tab = [[0 for x in range(w)] for y in range(h)]
-moy = [0]*w
 
-for i in range(0, images):
-    data = abs(np.fft.rfft(audio[div * i:div * (i+1)]))
-    data = data.tolist()
-    for compteur in range(w):
-        tab[compteur][i] = data[compteur]
-
-for k in range(w):
-    for l in range(0, images):
-        moy[k] = moy[k] + tab[k][l]
-    moy[k] = moy[k]/669
-
-data = np.log10(data)
-data = 2 * ((data - min(data)) / (max(data) - min(data))) - 1
-dat = [0]*w
-for i in range(len(data)):
-    dat[i] = data[i]
+tab = []
+moy = []
 
 for i in range(images):
-    for compteur in range(w):
-        tab[compteur][i] = data[compteur]
-        if dat[compteur] > moy[compteur]:
-            dat[compteur] = dat[compteur] + 0.01
-        else:
-            dat[compteur] = dat[compteur] - 0.01
+    data = abs(np.fft.rfft(audio[div * i:div * (i+1)]))
+    data = data.tolist()
+    tab.append(data)
 
-    with open(dir_path+'/dataFiles/' + str(i) + '.txt', 'w') as f:
-        for item in dat: f.write("%s\n" % item)
-    new_json(dat, str(i))
+
+
+for i in range(len(tab[0])):
+    somme = 0;
+    for j in range(images):
+        somme = somme + tab[j][i]
+    somme = somme//images
+    moy.append(somme)
+
+
+
+for i in range(len(tab)):
+    tab[i] = np.log10(tab[i])
+    tab[i] = 2 * ((tab[i] - min(tab[i])) / (max(tab[i]) - min(tab[i]))) - 1
+
+moy = np.log10(moy)
+moy = 2 * ((moy - min(moy)) / (max(moy) - min(moy))) - 1
+
+
+print(len(tab))
+
+
+for i in range(images):
+    for j in range(len(tab[0])):
+        if tab[i][j] > moy[j]:
+            tab[i][j] = moy[j] + 0.01
+        else:
+            tab[i][j] = moy[j] - 0.01
+
+    tab[i] = tab[i].tolist()
+
+    with open('/home/fabrice/PycharmProjects/GANV2/dataFiles/' + str(i) + '.txt', 'w') as f:
+        for item in tab[i]: f.write("%s\n" % item)
+    #new_json(tab, str(i))
+
+
