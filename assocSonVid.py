@@ -1,7 +1,7 @@
 import subprocess
 import ffmpeg
 
-audio = '/home/fabrice/PycharmProjects/GANV2/audioFiles/subzero.wav'
+audio = '/home/fabrice/PycharmProjects/GANV2/audioFiles/25.wav'
 video = '/home/fabrice/PycharmProjects/GANV2/output.avi'
 sortie = 'av.mkv'
 

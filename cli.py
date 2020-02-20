@@ -1,46 +1,97 @@
-import sys
-import numpy as np
+import sys, os, argparse
+# from gantools import ganbreeder
+# from gantools import biggan
+# from gantools import latent_space
+# from gantools import image_utils
+import ganbreeder
 import biggan
+import latent_space
 import image_utils
-import os
-import pandas as pd
-import cv2
-import glob
+import json
+import transition
+
+def handle_args(argv=None):
+    parser = argparse.ArgumentParser(
+            description='GAN tools',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter
+            )
+    # load from ganbreeder
+    ganbreeder_group = parser.add_argument_group(title='GANbreeder login')
+    ganbreeder_group.add_argument('-u', '--username', help='Ganbreeder account email address/username.')
+    ganbreeder_group.add_argument('-p', '--password', help='Ganbreeder account password.')
+    # ganbreeder_group.add_argument('-k', '--key1', type=str, help='Ganbreeder key 1.')
+    # ganbreeder_group.add_argument('-l', '--key2', type=str, help='Ganbreeder key 2.')
+    ganbreeder_group.add_argument('-k', '--keys', nargs='+', help='Ganbreeder keys.')
+    # ganbreeder_group.add_argument('-l', '--key2', nargs='+', help='Ganbreeder key 2.')
+    parser.add_argument('-n', '--nframes', metavar='N', type=int, help='Total number of frames in the final animation.', default=10)
+    parser.add_argument('-b', '--nbatch', metavar='N', type=int, help='Number of frames in each \'batch\' \
+            (note: the truncation value can only change once per batch. Don\'t fuck with this unless you know \
+            what it does.).', default=1)
+    parser.add_argument('-o', '--output-dir', help='Directory path for output images.', default=os.getcwd())
+    parser.add_argument('-P', '--prefix', help='File prefix for output images.')
+    parser.add_argument('--interp', choices=['linear', 'cubic'], default='linear', help='Set interpolation method.')
+    group_loop = parser.add_mutually_exclusive_group(required=False)
+    group_loop.add_argument('--loop', dest='loop', action='store_true', default=True, help='Loop the animation.')
+    group_loop.add_argument('--no-loop', dest='loop', action='store_false', help='Don\'t loop the animation.')
+    args = parser.parse_args(argv)
+    # args.keys = [args.key1, args.key2]
+
+    # validate args
+    if not (lambda l: (not any(l)) or all(l))(\
+            [e is not None and e is not [] for e in [args.username, args.password, args.keys]]):
+        parser.error('The --keys argument requires a --username and --password to login to ganbreeder')
+        sys.exit(1)
+    return args
+
+# create entrypoints for cli tools
+def main(arguments):
+    args = handle_args(arguments)
+    # get animation keyframes from ganbreeder
+    print('Downloading keyframe info from ganbreeder...')
+    keyframes = ganbreeder.get_info_batch(args.username, args.password, args.keys)
+    # interpolate path through input space
+    print('Interpolating path through input space...')
+
+    #print('keyframes : ',keyframes)
+
+    #print('truncation : ',keyframes['truncation'])
+    #print('latent : ',keyframes['latent'])
+    #print('label : ',keyframes['label'])
+
+    try:
+        z_seq, label_seq, truncation_seq = latent_space.sequence_keyframes(
+                keyframes,
+                args.nframes,
+                batch_size=args.nbatch,
+                interp_method=args.interp,
+                loop=args.loop)
+    except ValueError as e:
+        print(e)
+        print('ERROR: Interpolation failed. Make sure you are using at least 3 keys (4 if --no-loop is enabled)')
+        print('If you would like to use fewer keys, try using the --interp linear argument')
+        return 1
 
 
-def main(arguments=None):
 
-    print('Loading bigGAN...')
-    gan = biggan.BigGAN()
 
-    for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANV2/jsonStore'):
-        len(files)
+    os.chdir('/home/fabrice/PycharmProjects/GANV2/')
 
-    compteur = len(files)
+    print('chemin : ',os.getcwd())
 
-    for i in range(compteur):
-        data = pd.read_json('/home/fabrice/PycharmProjects/GANV2/jsonStore/' + str(i) + '.json', lines=True)
-        #data = pd.read_json('/home/fabrice/PycharmProjects/GANV2/jsonStore/99.json', lines=True)
+    path = '' if args.output_dir == None else str(args.output_dir)
+    #print('path : ',path)
 
-        truncationV = data['truncation']
+    prefix = '' if args.prefix == None else str(args.prefix)
+    #print('prefix : ',prefix)
+    saver = image_utils.ImageSaver(output_dir=path, prefix=prefix)
+    print('Image files will be saved to: '+path + prefix)
+    print('Sampling from bigGAN...')
 
-        z_seq = data['latent']
-        z_seq = z_seq.tolist()
-        z_seq = np.array(z_seq)
+    gan = transition.gan
 
-        label_seq = np.zeros(1000)
-        j = 0
-        for c in range(len(data['classes'][0])):
-            label_seq[data['classes'][0][j][0]] = data['classes'][0][j][1]
-            j = j + 1
-
-        label_seq.shape = (1, 1000)
-
-        saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANV2/images", prefix=i)
-        gan.sample(z_seq, label_seq, truncation=truncationV, save_callback=saver.save)
-
+    gan.sample(z_seq, label_seq, truncation=truncation_seq, batch_size=args.nbatch, save_callback=saver.save)
+    print('Done.')
+    return 0
 
 if __name__ == '__main__':
     sys.exit(main())
-
-

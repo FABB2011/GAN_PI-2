@@ -64,7 +64,8 @@ class BigGAN(object):
             s = slice(batch_start, min(num, batch_start + batch_size))
             feed_dict = {self.input_z: vectors[s], self.input_y: labels[s], self.input_trunc: trunc}
             ims_batch = self.sess.run(self.output, feed_dict=feed_dict)
-            ims_batch = np.clip(((ims_batch + 1) / 2.0) * 256, 0, 255)
+
+            ims_batch = np.clip(((ims_batch + 1) / 2.0) * 256, 0, 511)
             ims_batch = np.uint8(ims_batch)
             if save_callback is None:
                 ims.append(ims_batch)
