@@ -69,7 +69,7 @@ def create_files(data, nb_images):
         new_json(data[i], i, clusters.labels_[i])
 
 
-data1, sampling_rate1 = librosa.load('/home/fabrice/PycharmProjects/GANV2/audioFiles/subzero.wav')
+data1, sampling_rate1 = librosa.load('/home/fabrice/PycharmProjects/GANV2/audioFiles/subzero45.wav')
 duration1 = len(data1)/sampling_rate1
 frame_rate1 = 24
 nb_images1 = int(duration1*frame_rate1)
@@ -78,9 +78,9 @@ div1 = int(div1)
 
 data1 = fourier(data1, nb_images1, div1)
 
-data1 = ema(data1, nb_images1, 50)
+data1 = ema(data1, nb_images1, 15)
 
-clusters = KMeans(n_clusters=17, random_state=0).fit(data1)
+clusters = KMeans(n_clusters=12, random_state=0).fit(data1)
 print(clusters.labels_)
 
 data1 = scale_rand(data1, nb_images1)
