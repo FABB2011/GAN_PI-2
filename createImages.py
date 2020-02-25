@@ -10,7 +10,6 @@ import glob
 
 def main(arguments=None):
 
-    print('Loading bigGAN...')
     gan = biggan.BigGAN()
 
     for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANV2/jsonStore'):

@@ -12,3 +12,4 @@ for i in range(len(liste)):
     frame = cv2.imread(path_img + liste[i])
     out.write(frame)
 out.release()
+
