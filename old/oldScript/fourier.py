@@ -1,14 +1,26 @@
 import librosa
 import pandas as pd
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, MeanShift, DBSCAN
+from sklearn import mixture
 import numpy as np
 import sys
 import json
 import os
 import random
 import classes
-import images
-np.set_printoptions(threshold=np.inf)
+import matplotlib.pyplot as plt
+
+np.set_printoptions(threshold=sys.maxsize)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+
+def new_json(my_list, file_number, cluster):
+
+    values = {"truncation": eval('classes.truncation' + str(cluster)),
+            "latent": my_list,
+            "classes": eval('classes.classes' + str(cluster))}
+    with open(dir_path+'/jsonStore/' + str(file_number) + str(cluster) + '.json','w') as outfile:
+        json.dump(values, outfile)
 
 
 def fourier(data, nb_images, div):
@@ -49,30 +61,17 @@ def scale_rand(data, nb_images):
         random.Random(5).shuffle(data[i])
     return data
 
-def create_classes(data, clusters):
 
-    for i in range(len(data)):
+def create_files(data, nb_images):
+
+    for i in range(nb_images):
+        with open('/home/fabrice/PycharmProjects/GANMovie/dataFiles/' + str(i) + '.txt', 'w') as f:
+            for item in data[i]: f.write("%s\n" % item)
         data[i] = data[i].tolist()
-        classe = eval('classes.classes' + str(clusters[i]))
-        truncation = eval('classes.truncation' + str(clusters[i]))
-        data[i].append(classe)
-        data[i].append(truncation)
-    return data
-
-def delete_data(data):
-    for i in range(len(data)):
-        data1[i].append(False)
-
-    for i in range(len(data) - 1):
-        if  data[i][len(data[i]) - 2] != data[i + 1][len(data[i + 1]) - 2]:
-
-            data[i][len(data[i]) - 1] = True
+        new_json(data[i], i, clusters.labels_[i])
 
 
-    return data
-
-
-data1, sampling_rate1 = librosa.load('/home/fabrice/PycharmProjects/GANMovie/audioFiles/subzero45.wav')
+data1, sampling_rate1 = librosa.load('/home/fabrice/PycharmProjects/GANMovie/audioFiles/subzero15.3.wav')
 duration1 = len(data1)/sampling_rate1
 frame_rate1 = 24
 nb_images1 = int(duration1*frame_rate1)
@@ -81,25 +80,21 @@ div1 = int(div1)
 
 data1 = fourier(data1, nb_images1, div1)
 
+#labels = clusters.predict(data1)
+
 data1 = ema(data1, nb_images1, 25)
 
-clusters = KMeans(n_clusters=3, random_state=0).fit(data1)
+clusters = KMeans(n_clusters=10, random_state=0).fit(data1)
+#clusters = MeanShift(max_iter=500).fit(data1)
+#clusters = DBSCAN(eps=0.5, min_samples=2).fit(data1)
+#clusters = mixture.GaussianMixture(n_components=4).fit(data1)
 
 print(clusters.labels_)
+#print(labels)
 
 data1 = scale_rand(data1, nb_images1)
 
-data2 = create_classes(data1, clusters.labels_)
-
-data3 = delete_data(data2)
-
-'''
-for i in range(len(data3)):
-    print(data3[i][len(data3[i]) - 2:len(data3[i])])
-'''
-images.main(data3)
-
-
+create_files(data1, nb_images1)
 
 
 

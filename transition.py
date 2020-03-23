@@ -1,20 +1,16 @@
 import sys
-sys.path.append('./gantools/gantools')
 import cli as gaanBreederCli
 import os
 import numpy as np
-import biggan
 
-movieFrameRate = 3
 workdir = "transitions"
 if not os.path.exists(workdir):
 	os.makedirs(workdir)
 
-gan = biggan.BigGAN()
 
-def main():
+def main(num, gan, suppr):
 
-	for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANV2/jsonStore'):
+	for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANMovie/jsonStore'):
 		len(files)
 
 	total_files = len(files)
@@ -28,7 +24,7 @@ def main():
 
 	frameNumberPerDuration=[]
 	for duration in durations:
-		frameNumberPerDuration.append(int(movieFrameRate*duration))
+		frameNumberPerDuration.append(int(suppr*duration))
 
 	arguments = ["-uhenri.lieutaud@gmail.com", "-pAB6hzKSXYBf7", "--no-loop", "-o"+workdir]
 	i = 0
@@ -44,7 +40,5 @@ def main():
 			arguments.append("-n"+str(frameNumberPerDuration[i]))
 		arguments.append("-P"+ str(i).zfill(4))
 		i += 1
-		gaanBreederCli.main(arguments)
+		gaanBreederCli.main(arguments, num, gan)
 
-if __name__ == '__main__':
-	main()

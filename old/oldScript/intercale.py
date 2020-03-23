@@ -15,13 +15,15 @@ gan = biggan.BigGAN()
 
 def main():
 
-	for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANV2/jsonStore'):
+	for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANVMovie/jsonStore'):
 		len(files)
 
-	for j in range(len(files) - 1):
+	#print(len(files))
 
-		data1 = pd.read_json('/home/fabrice/PycharmProjects/GANV2/jsonStore/' + str(j) + '.json', lines=True)
-		data2 = pd.read_json('/home/fabrice/PycharmProjects/GANV2/jsonStore/' + str(j + 1) + '.json', lines=True)
+	for j in range(2):
+
+		data1 = pd.read_json('/home/fabrice/PycharmProjects/GANVMovie/jsonStore/' + str(j) + '.json', lines=True)
+		data2 = pd.read_json('/home/fabrice/PycharmProjects/GANVMovie/jsonStore/' + str(j + 1) + '.json', lines=True)
 
 		if data1['truncation'].values != data2['truncation'].values:
 

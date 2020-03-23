@@ -56,7 +56,7 @@ def get_info(sid, key):
 
     key = key.replace("'", "")
 
-    os.chdir('/home/fabrice/PycharmProjects/GANV2/jsonStore')
+    os.chdir('/home/fabrice/PycharmProjects/GANMovie/jsonStore')
 
     with open(key+'.json') as json_data:
         key_json = json.load(json_data)

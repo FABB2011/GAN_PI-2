@@ -2,40 +2,63 @@ import sys
 import numpy as np
 import biggan
 import image_utils
+import json
+import transition
 
 
-def main(tab):
+# create a json file representing the data of one frame
+def new_json(data, num):
+    classes = data[128:len(data) - 1]
+    classes = classes[0]
+    values = {"truncation": data[len(data) - 1],
+            "latent": data[0:128],
+            "classes": classes}
+    with open('/home/fabrice/PycharmProjects/GANMovie/jsonStore/' + str(num) + '.json','w') as outfile:
+        json.dump(values, outfile)
 
+
+def main(tab, skip):
+
+    # load the gan function
     gan = biggan.BigGAN()
 
-    for i in range(len(tab)):
+    i = 0
+    step = 1
+    while i < len(tab):
 
-        if tab[i][len(tab[i]) - 1:len(tab[i])] == [False] or tab[i][len(tab[i]) - 1:len(tab[i])] == [True]:
+        if tab[i][len(tab[i]) - 1:len(tab[i])] == [False]:
 
-            tab[i] = tab[i][:len(tab[i]) - 1]
+            data = tab[i][:len(tab[i]) - 1]
 
-            # print(tab[i])
-
-            latent_space = tab[i][0:128]
+            latent_space = data[0:128]
             latent_space = np.array(latent_space)
             latent_space.shape = (1, 128)
 
-            classes = tab[i][128:len(tab[0]) - 1]
+            classes = data[128:len(data) - 1]
             label_seq = np.zeros(1000)
             for j in range(len(classes[0])):
                 label_seq[classes[0][j][0]] = classes[0][j][1]
             label_seq.shape = (1, 1000)
 
-            truncation = tab[i][len(tab[i]) - 1]
+            truncation = data[len(data) - 1]
 
-            # saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=i)
-            saver = image_utils.ImageSaver(output_dir="images", prefix=i)
+            saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=i)
             gan.sample(latent_space, label_seq, truncation=truncation, save_callback=saver.save)
+            step = 1
 
         else:
-            print('NO')
+            tab0 = tab[i][:len(tab[i]) - 1]
+            tab1 = tab[i + 1][:len(tab[i + 1]) - 1]
+
+            new_json(tab0, 0)
+            new_json(tab1, 1)
+
+            transition.main(i, gan, skip)
+            step = skip
+
+        i = i + step
 
 
 
-if __name__ == '__main__':
-    sys.exit(main())
+
+

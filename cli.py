@@ -34,7 +34,7 @@ def handle_args(argv=None):
     return args
 
 
-def main(arguments, num):
+def main(arguments, num, gan):
     args = handle_args(arguments)
     keyframes = ganbreeder.get_info_batch(args.username, args.password, args.keys)
 
@@ -48,16 +48,17 @@ def main(arguments, num):
     except ValueError as e:
         return 1
 
-    os.chdir('/home/fabrice/PycharmProjects/GANV2/')
+    os.chdir('/home/fabrice/PycharmProjects/GANMovie/')
 
 
     path = '' if args.output_dir == None else str(args.output_dir)
 
     prefix = '' if args.prefix == None else str(args.prefix)
-    saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANV2/transitions", prefix=num)
+    saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=num)
     #saver = image_utils.ImageSaver(output_dir=path, prefix=prefix)
 
-    gan = transition.gan
+    #gan = transition.gan
+    #gan = biggan.BigGAN()
 
     gan.sample(z_seq, label_seq, truncation=truncation_seq, batch_size=args.nbatch, save_callback=saver.save)
     return 0

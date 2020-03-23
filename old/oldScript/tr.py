@@ -5,16 +5,19 @@ import os
 import numpy as np
 import biggan
 
-movieFrameRate = 3
+movieFrameRate = 10
 workdir = "transitions"
 if not os.path.exists(workdir):
 	os.makedirs(workdir)
 
-gan = biggan.BigGAN()
+#gan = biggan.BigGAN()
 
 def main():
 
+	for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANMovie/jsonStore'):
+		len(files)
 
+	total_files = len(files)
 
 	keysList=[]
 	for k in range(total_files):
@@ -41,7 +44,7 @@ def main():
 			arguments.append("-n"+str(frameNumberPerDuration[i]))
 		arguments.append("-P"+ str(i).zfill(4))
 		i += 1
-		gaanBreederCli.main(arguments)
+		gaanBreederCli.main(arguments, 1, gan)
 
 if __name__ == '__main__':
 	main()
