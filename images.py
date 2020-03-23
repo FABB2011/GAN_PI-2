@@ -23,7 +23,6 @@ def main(tab, skip):
     gan = biggan.BigGAN()
 
     i = 0
-    step = 1
     while i < len(tab):
 
         if tab[i][len(tab[i]) - 1:len(tab[i])] == [False]:
@@ -48,7 +47,7 @@ def main(tab, skip):
 
         else:
             tab0 = tab[i][:len(tab[i]) - 1]
-            tab1 = tab[i + 1][:len(tab[i + 1]) - 1]
+            tab1 = tab[i + skip][:len(tab[i + skip]) - 1]
 
             new_json(tab0, 0)
             new_json(tab1, 1)
