@@ -17,7 +17,7 @@ def new_json(data, num):
         json.dump(values, outfile)
 
 
-def main(tab, skip):
+def main(tab, skip, nb_image):
 
     # load the gan function
     gan = biggan.BigGAN()
@@ -43,19 +43,42 @@ def main(tab, skip):
 
             saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=i)
             gan.sample(latent_space, label_seq, truncation=truncation, save_callback=saver.save)
-            step = 1
+            i = i + 1
 
         else:
             tab0 = tab[i][:len(tab[i]) - 1]
             tab1 = tab[i + skip][:len(tab[i + skip]) - 1]
-
             new_json(tab0, 0)
             new_json(tab1, 1)
-
             transition.main(i, gan, skip)
-            step = skip
+            i = i + skip
+
+        print(str(i), ' sur ', str(nb_image))
+
+
+def main2(tab, skip, nb_image):
+
+    # load the gan function
+    gan = biggan.BigGAN()
+
+    i = 0
+    while i < len(tab):
+        tab0 = tab[i][:len(tab[i]) - 1]
+        tab1 = tab[i + 1][:len(tab[i + skip]) - 1]
+
+        new_json(tab0, 0)
+        new_json(tab1, 1)
+
+        transition.main(i, gan, skip)
+        step = skip
+
+        print(str(i), ' sur ', str(nb_image))
 
         i = i + step
+
+
+
+
 
 
 

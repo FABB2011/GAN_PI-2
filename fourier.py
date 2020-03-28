@@ -41,17 +41,19 @@ def ema(data, nb_images, period):
 
 
 # scale the data between -1 and +1
-def scale_rand(data, nb_images):
+def scale_rand(data, nb_images, shuffle):
     for i in range(nb_images):
         data[i] = data[i][50:178]
+        for j in range(len(data[i])):
+            if data[i][j] > 1:
+                data[i][j] = 1
         data[i] = 2 * ((data[i] - min(data[i])) / (max(data[i]) - min(data[i]))) - 1
-        random.Random(5).shuffle(data[i])
+        random.Random(shuffle).shuffle(data[i])
     return data
 
 
 # give to each frame an image type (a class) depending on their cluster
 def create_classes(data, clusters):
-
     for i in range(len(data)):
         data[i] = data[i].tolist()
         classe = eval('classes.classes' + str(clusters[i]))
@@ -71,7 +73,7 @@ def mark_data(data):
     return data
 
 
-def main(audio_path, frame_rate, skip, image_number, ema_period):
+def main(audio_path, frame_rate, skip, image_number, ema_period, shuffle):
 
     # load the song
     data1, sampling_rate1 = librosa.load(audio_path)
@@ -97,7 +99,7 @@ def main(audio_path, frame_rate, skip, image_number, ema_period):
     print(clusters.labels_)
 
     # scaling of the data
-    data1 = scale_rand(data1, nb_images1)
+    data1 = scale_rand(data1, nb_images1, shuffle)
 
     # assignation of classes
     data2 = create_classes(data1, clusters.labels_)
@@ -105,7 +107,7 @@ def main(audio_path, frame_rate, skip, image_number, ema_period):
     # mark the data that will change of class
     data3 = mark_data(data2)
 
-    images.main(data3, skip)
+    images.main(data3, skip, nb_images1)
 
 
 
