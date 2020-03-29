@@ -26,7 +26,7 @@ def main(num, gan, suppr):
 	for duration in durations:
 		frameNumberPerDuration.append(int(suppr*duration))
 
-	arguments = ["-uhenri.lieutaud@gmail.com", "-pAB6hzKSXYBf7", "--no-loop", "-o"+workdir]
+	arguments = ["-F5T7H3D7G0", "-RT56HO98", "--no-loop", "-o"+workdir]
 	i = 0
 
 	for key in keysList:

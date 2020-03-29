@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import numpy as np
 import random
 import classes
-import images
+import create_images
 np.set_printoptions(threshold=np.inf)
 
 
@@ -46,8 +46,9 @@ def scale_rand(data, nb_images, shuffle):
         data[i] = data[i][50:178]
         for j in range(len(data[i])):
             if data[i][j] > 1:
-                data[i][j] = 1
+                data[i][j] = 1.0
         data[i] = 2 * ((data[i] - min(data[i])) / (max(data[i]) - min(data[i]))) - 1
+        # the data are shuffled
         random.Random(shuffle).shuffle(data[i])
     return data
 
@@ -107,7 +108,8 @@ def main(audio_path, frame_rate, skip, image_number, ema_period, shuffle):
     # mark the data that will change of class
     data3 = mark_data(data2)
 
-    images.main(data3, skip, nb_images1)
+    # we call the function that create an image from each part of the data
+    create_images.main(data3, skip, nb_images1)
 
 
 

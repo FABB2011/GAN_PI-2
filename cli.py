@@ -1,10 +1,8 @@
 import sys, os, argparse
 import ganbreeder
-import biggan
 import latent_space
 import image_utils
-import json
-import transition
+
 
 def handle_args(argv=None):
     parser = argparse.ArgumentParser(
@@ -55,10 +53,6 @@ def main(arguments, num, gan):
 
     prefix = '' if args.prefix == None else str(args.prefix)
     saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=num)
-    #saver = image_utils.ImageSaver(output_dir=path, prefix=prefix)
-
-    #gan = transition.gan
-    #gan = biggan.BigGAN()
 
     gan.sample(z_seq, label_seq, truncation=truncation_seq, batch_size=args.nbatch, save_callback=saver.save)
     return 0
