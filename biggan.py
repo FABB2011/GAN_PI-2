@@ -1,16 +1,13 @@
-# methods for setting up and interacting with biggan
 import tensorflow.compat.v1 as tf
 import tensorflow_hub as hub
 import numpy as np
 from itertools import cycle
 
-
-#session = InteractiveSession(config=config)
-
 # Plus réaliste
 # MODULE_PATH = 'https://tfhub.dev/deepmind/biggan-deep-512/2'
 # Plus éthéré
 MODULE_PATH = 'https://tfhub.dev/deepmind/biggan-512/2'
+
 
 class BigGAN(object):
     def __init__(self, module_path=MODULE_PATH):
@@ -50,13 +47,13 @@ class BigGAN(object):
         self.sess.run(initializer)
 
     # NOTE: use save callback to save images once per batch. return type changes to None.
-    def sample(self, vectors, labels, truncation=0.5, batch_size=1, save_callback=None):
+    def sample(self, vectors, labels, truncation, batch_size=1, save_callback=None):
         num = vectors.shape[0]
+
 
         # deal with scalar input case
         truncation = np.asarray(truncation)
-        if truncation.ndim == 0:# truncation is a scalar
-            #TODO: there has to be a better way to do this...
+        if truncation.ndim == 0:
             truncation = cycle([truncation])
 
         ims = []
@@ -78,6 +75,3 @@ class BigGAN(object):
         else:
             return None
 
-
-    # TODO: make a version of sample() that includes a callback function to save ims somewhere instead of keeping
-    # them in memory.

@@ -1,11 +1,6 @@
-import sys
-import cli as gaanBreederCli
+import cli
 import os
 import numpy as np
-
-workdir = "transitions"
-if not os.path.exists(workdir):
-	os.makedirs(workdir)
 
 
 def main(num, gan, suppr):
@@ -26,7 +21,7 @@ def main(num, gan, suppr):
 	for duration in durations:
 		frameNumberPerDuration.append(int(suppr*duration))
 
-	arguments = ["-F5T7H3D7G0", "-RT56HO98", "--no-loop", "-o"+workdir]
+	arguments = ["--no-loop"]
 	i = 0
 
 	for key in keysList:
@@ -40,5 +35,5 @@ def main(num, gan, suppr):
 			arguments.append("-n"+str(frameNumberPerDuration[i]))
 		arguments.append("-P"+ str(i).zfill(4))
 		i += 1
-		gaanBreederCli.main(arguments, num, gan)
+		cli.main(arguments, num, gan)
 

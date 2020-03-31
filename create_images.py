@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 import biggan
 import image_utils
@@ -28,7 +27,7 @@ def chang_image(tab):
                 random.Random(const).shuffle(temp)
                 for k in range(len(temp)):
                     tab[i][k] = temp[k]
-        print('shuffle: ', str(i), ' sur ', str(len(tab)))
+        print('shuffle: ', str(i), ' on ', str(len(tab)))
 
 
 def main(tab, skip, nb_image):
@@ -73,7 +72,7 @@ def main(tab, skip, nb_image):
             create_transitions.main(i, gan, skip)
             i = i + skip
 
-        print('images: ', str(i), ' sur ', str(nb_image))
+        print('images: ', str(i), ' on ', str(nb_image))
 
 
 def main2(tab, skip, nb_image):
@@ -92,7 +91,7 @@ def main2(tab, skip, nb_image):
         create_transitions.main(i, gan, skip)
         step = skip
 
-        print('images: ', str(i), ' sur ', str(nb_image))
+        print('images: ', str(i), ' on ', str(nb_image))
 
         i = i + step
 

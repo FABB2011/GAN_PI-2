@@ -1,5 +1,4 @@
 import subprocess
-import ffmpeg
 
 
 def main(audio_path, video_path, video_name):

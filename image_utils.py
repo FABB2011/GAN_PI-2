@@ -1,16 +1,18 @@
 import os
 import PIL.Image
-import json
+
 
 def save_image(arr, fp, format='PNG'):
     image = PIL.Image.fromarray(arr)
     image.save(fp, format=format, quality=90)
+
 
 def save_images(ims, output_dir='', prefix='', format='PNG'):
     for i, im in enumerate(ims):
         full_path = os.path.join(output_dir, prefix + str(i).zfill(4) + '.' + format.lower())
         print(full_path)
         save_image(im, full_path, format)
+
 
 class ImageSaver(object):
     def __init__(self, output_dir='', prefix='', image_format='PNG'):

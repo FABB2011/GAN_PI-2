@@ -1,11 +1,13 @@
 import numpy as np
 from scipy import signal, interpolate
 
+
 def one_hot(index, dim):
     y = np.zeros((1, dim))
     if index < dim:
         y[0, index] = 1.0
     return y
+
 
 # interpolation methods
 def linear_interp(points, step_count):
@@ -14,6 +16,7 @@ def linear_interp(points, step_count):
         xnew = np.linspace(0., 1., step_count)
         return interpolate.interp1d(x, y)(xnew)
     return np.apply_along_axis(linear_interp1d, 0, points)
+
 
 def cubic_spline_interp(points, step_count):
     def cubic_spline_interp1d(y):
@@ -26,7 +29,6 @@ def cubic_spline_interp(points, step_count):
     return np.apply_along_axis(cubic_spline_interp1d, 0, points)
 
 
-# TODO: the math in this function is embarrasingly bad. fix at some point.
 def sequence_keyframes(keyframes, num_frames, batch_size=1, interp_method='linear', loop=False):
     interp_fn = {
             'linear': linear_interp,

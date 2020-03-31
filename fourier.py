@@ -77,6 +77,7 @@ def mark_data(data):
 def main(audio_path, frame_rate, skip, image_number, ema_period, shuffle):
 
     # load the song
+    print("Audio reading...\n")
     data1, sampling_rate1 = librosa.load(audio_path)
 
     # compute the duration of the song
@@ -90,25 +91,32 @@ def main(audio_path, frame_rate, skip, image_number, ema_period, shuffle):
     div1 = int(div1)
 
     # Fourier transformation
+    print("Fourier transform calculation...\n")
     data1 = fourier(data1, nb_images1, div1)
 
     # exponential moving average
+    print("Exponential moving average calculation...\n")
     data1 = ema(data1, nb_images1, ema_period)
 
     # clustering
+    print("Cluster computation...\n")
     clusters = KMeans(n_clusters=image_number, random_state=0).fit(data1)
-    print(clusters.labels_)
+    #print(clusters.labels_)
 
     # scaling of the data
+    print("Data scaling and shuffling...\n")
     data1 = scale_rand(data1, nb_images1, shuffle)
 
     # assignation of classes
+    print("Class allocation...\n")
     data2 = create_classes(data1, clusters.labels_)
 
     # mark the data that will change of class
+    print("Transition identification...\n")
     data3 = mark_data(data2)
 
     # we call the function that create an image from each part of the data
+    print("Images creation...\n")
     create_images.main(data3, skip, nb_images1)
 
 
