@@ -10,3 +10,7 @@ La vidéo ainsi créée s'adapte aux fréquences du morceau et suit son rythme.
 Choix de l'audio:
 
 L'utilisateur choisi le morceau de musique pour lequel il souhaite créer un clip.
+
+Traitement des donnée:
+
+La première étapes du tratement des données est le calcul de la transformée de Fourier afin d'obtenir la réponse fréquencielle.
