@@ -2,6 +2,7 @@ import fourier
 import create_video
 import add_audio
 import os
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 liste_sounds = os.listdir(dir_path+'/audioFiles/')
 

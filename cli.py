@@ -2,6 +2,7 @@ import sys, os, argparse
 import ganbreeder
 import latent_space
 import image_utils
+import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
