@@ -2,7 +2,7 @@ import cli
 import os
 import numpy as np
 
-dir_path = os.path.dirname(os.path.realpath(_file_))
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def main(num, gan, suppr):
 

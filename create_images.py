@@ -4,7 +4,7 @@ import image_utils
 import json
 import create_transitions
 import random
-dir_path = os.path.dirname(os.path.realpath(_file_))
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # create a json file representing the data of one frame
 def new_json(data, num):

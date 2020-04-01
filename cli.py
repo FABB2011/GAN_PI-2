@@ -3,7 +3,7 @@ import ganbreeder
 import latent_space
 import image_utils
 
-dir_path = os.path.dirname(os.path.realpath(_file_))
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def handle_args(argv=None):
     parser = argparse.ArgumentParser(

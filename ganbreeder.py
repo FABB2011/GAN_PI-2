@@ -2,7 +2,7 @@ import json
 import numpy as np
 import os
 
-dir_path = os.path.dirname(os.path.realpath(_file_))
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def parse_info_dict(info):
     keyframe = dict()
