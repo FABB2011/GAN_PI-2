@@ -3,6 +3,7 @@ import ganbreeder
 import latent_space
 import image_utils
 
+dir_path = os.path.dirname(os.path.realpath(_file_))
 
 def handle_args(argv=None):
     parser = argparse.ArgumentParser(
@@ -43,9 +44,10 @@ def main(arguments, num, gan):
     except ValueError as e:
         return 1
 
-    os.chdir('/home/fabrice/PycharmProjects/GANMovie/')
+		
+    os.chdir(dir_path)
 
-    saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=num)
+    saver = image_utils.ImageSaver(output_dir=dir_path+"/images", prefix=num)
 
     gan.sample(z_seq, label_seq, truncation=truncation_seq, save_callback=saver.save)
     return 0

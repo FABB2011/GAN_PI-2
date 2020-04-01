@@ -2,10 +2,11 @@ import cli
 import os
 import numpy as np
 
+dir_path = os.path.dirname(os.path.realpath(_file_))
 
 def main(num, gan, suppr):
 
-	for root, _, files in os.walk('/home/fabrice/PycharmProjects/GANMovie/jsonStore'):
+	for root, _, files in os.walk(dir_path+'/jsonStore'):
 		len(files)
 
 	total_files = len(files)

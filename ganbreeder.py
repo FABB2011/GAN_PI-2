@@ -2,6 +2,7 @@ import json
 import numpy as np
 import os
 
+dir_path = os.path.dirname(os.path.realpath(_file_))
 
 def parse_info_dict(info):
     keyframe = dict()
@@ -17,7 +18,7 @@ def parse_info_dict(info):
 
 def get_info(key):
     key = key.replace("'", "")
-    os.chdir('/home/fabrice/PycharmProjects/GANMovie/jsonStore')
+    os.chdir(dir_path+'/jsonStore')
     with open(key+'.json') as json_data:
         key_json = json.load(json_data)
     return parse_info_dict(key_json)

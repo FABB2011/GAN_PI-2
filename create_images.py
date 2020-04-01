@@ -4,7 +4,7 @@ import image_utils
 import json
 import create_transitions
 import random
-
+dir_path = os.path.dirname(os.path.realpath(_file_))
 
 # create a json file representing the data of one frame
 def new_json(data, num):
@@ -13,7 +13,7 @@ def new_json(data, num):
     values = {"truncation": data[len(data) - 1],
             "latent": data[0:128],
             "classes": classes}
-    with open('/home/fabrice/PycharmProjects/GANMovie/jsonStore/' + str(num) + '.json','w') as outfile:
+    with open(dir_path+'/jsonStore/' + str(num) + '.json','w') as outfile:
         json.dump(values, outfile)
 
 
@@ -57,7 +57,7 @@ def main(tab, skip, nb_image):
 
             truncation = data[len(data) - 1]
 
-            saver = image_utils.ImageSaver(output_dir="/home/fabrice/PycharmProjects/GANMovie/images", prefix=i)
+            saver = image_utils.ImageSaver(output_dir=dir_path+"/images", prefix=i)
             gan.sample(latent_space, label_seq, truncation=truncation, save_callback=saver.save)
             i = i + 1
 
