@@ -10,7 +10,22 @@ Select an audio track :
 You can add your own audio track bu adding it in the "audioFiles" folder.
 When you launch the code, you can choose your audi file among those of the "audioFiles" folder.
 
-The
+Select a framerate :
+
+You can choose the number of images generated for each second of the chosen audio file.
+We recommand 60 and it can not work above this value.
+
+Transitions images :
+
+You will be asked to choose the number of transition images.
+The transition images are created to smooth the video.
+
+If you don't want transition images then choose 0.
+
+The choice of the number of transition images will depend on the framerate. 
+For a good compromise
+
+
 
 # Fonctionnement du code
 
