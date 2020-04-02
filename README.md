@@ -32,6 +32,20 @@ We collected different types of image from this website and they are stored in t
 We ask the user the number of images he wants to use to make the video.
 The user can add his own images in "classes.py".
 
+# How the code work
+
+Fourier transform :
+Firstly we use the Fourier transform to compute the frequency response of the audio. 
+The Fourier transform is applied on each parts of the audio track in function of the framerate (for exemple if the audio is 1 seconds long and the framerate is 24, we will compute the Fourier transform 24 times.
+
+Exponential moving average :
+In order to smooth the frequency response and obtain a fluid video, we use the exponential moving average that will smooth
+the signal.
+
+
+
+
+
 
 
 
