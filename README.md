@@ -7,7 +7,7 @@ The generated clip adapt himself to the frequencies and the rythm of the chosen 
 
 Python version : 3.6
 
-Python packages : tensorflow, tensorflow-hub, numpy, cv2, librosa, pandas, scikit-learn, Pillow, scipy, ffmpeg and their dependenncies.
+Python packages : tensorflow, tensorflow-hub, numpy, cv2, librosa, pandas, scikit-learn, Pillow, scipy, ffmpeg and their dependencies.
 
 If you want to run the program using a GPU, here are some information : https://www.tensorflow.org/install/gpu
 
