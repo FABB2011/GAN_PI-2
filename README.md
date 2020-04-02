@@ -5,6 +5,8 @@ The generated clip adapt himself to the fraquencies and the rythm of the chosen 
 
 # How to use it
 
+Launch "main.py".
+
 Select an audio track :
 
 You can add your own audio track bu adding it in the "audioFiles" folder.
