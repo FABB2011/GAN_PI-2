@@ -64,7 +64,7 @@ The programm will run as following : if the class of N is the same as the class 
 Video creation :
 Finally we put together all the created images in one video and we add the chosen audio track and we add it on the video.
 
-# Function of the different script
+# Function of the different scripts
 
 add_audio : add the audio track on the created video
 
@@ -91,14 +91,3 @@ latent_space : interpolation function to create transition images
 main : launch the program, ask the user abut the properties of the video that he wants to create
 
 upscale_video : upscale the video with a video resolution defined by the user 
-
-
-
-
-
-
-
-
-
-
-
