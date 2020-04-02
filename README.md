@@ -25,6 +25,10 @@ If you don't want transition images then choose 0.
 The choice of the number of transition images will depend on the framerate. 
 For a good compromise between a dynamic and a fluid video 20 images of transition for a framerate of 60 is a good choice (For a framerate of 30, it will be 10 transition images, you have to keep the same ratio).
 
+Number of images :
+
+The image structures used to create new images from the audio come from the website Artbreeder (https://www.artbreeder.com).
+
 
 
 
