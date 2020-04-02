@@ -1,4 +1,4 @@
-# GAN_PI-2
+# GAN movie maker
 
 This program can create a video clip from an audio file.
 The generated clip adapt himself to the fraquencies and the rythm of the chosen track.
