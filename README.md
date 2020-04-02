@@ -1,6 +1,6 @@
 # GAN movie maker
 
-This program create a video clip from an audio file.
+This program create a video clip from an audio file chosen by the user.
 The generated clip adapt himself to the frequencies and the rythm of the chosen track.
 
 # Requirements
