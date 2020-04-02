@@ -64,6 +64,33 @@ The programm will run as following : if the class of N is the same as the class 
 Video creation :
 Finally we put together all the created images in one video and we add the chosen audio track and we add it on the video.
 
+# Function of the different script
+
+add_audio : add the audio track on the created video
+
+biggan : the GAN function, it generates images 
+
+classes : a collection of image classes from the website Artbreeder, we can add or delete some classes depending of what kind of image we want in our video
+
+cli : extract transition image data from JSON files in order to generate these transition images
+
+create_images : create images
+
+create_transitions : create transition images
+
+create_video : create the video from the create images in the "images" folder
+
+fourier : perform the audio processing, Fourier transform, exponetial moving average, normalization and clustering
+
+ganbreeder :
+
+image_utils : define the image properties
+
+latent_space : interpolation function to create transition images
+
+main : launch the program, ask the user abut the properties of the video that he wants to create
+
+upscale_video : upscale the video with a video resolution defined by the user 
 
 
 
