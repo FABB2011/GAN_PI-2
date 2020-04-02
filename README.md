@@ -6,7 +6,6 @@ The generated clip adapt himself to the fraquencies and the rythm of the chosen 
 # How to use it
 
 Select an audio track :
-
 You can add your own audio track bu adding it in the "audioFiles" folder.
 When you launch the code, you can choose your audi file among those of the "audioFiles" folder.
 
@@ -41,6 +40,13 @@ The Fourier transform is applied on each parts of the audio track in function of
 Exponential moving average :
 In order to smooth the frequency response and obtain a fluid video, we use the exponential moving average that will smooth
 the signal.
+
+Normalization :
+The GAN function that we will use later take value between -1 and 1. If lower or greater values are used, the resulting
+images are strange. Therefore, we normalize the data between these two values.
+
+Image type attribution :
+
 
 
 
