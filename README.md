@@ -17,7 +17,7 @@ When you launch the code, you can choose your audi file among those of the "audi
 Select a framerate :
 
 You can choose the number of images generated for each second of the chosen audio file.
-We recommand 60 and it can not work above this value.
+We recommend 60 and it can not work above this value.
 
 Transitions images :
 
