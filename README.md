@@ -28,17 +28,11 @@ For a good compromise between a dynamic and a fluid video 20 images of transitio
 Number of images :
 
 The image structures used to create new images from the audio come from the website Artbreeder (https://www.artbreeder.com).
+We collected different types of image from this website and they are stored in the script "classes.py".
+We ask the user the number of images he wants to use to make the video.
+The user can add his own images in "classes.py".
 
 
 
 
 
-# Fonctionnement du code
-
-Choix de l'audio:
-
-L'utilisateur choisi le morceau de musique pour lequel il souhaite créer un clip.
-
-Traitement des donnée:
-
-La première étapes du tratement des données est le calcul de la transformée de Fourier afin d'obtenir la réponse fréquencielle.
