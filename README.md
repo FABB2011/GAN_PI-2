@@ -1,9 +1,16 @@
 # GAN_PI-2
 
-Ce programme permet de générer un clip vidéo à partir d'un fichier audio.
-La vidéo ainsi créée s'adapte aux fréquences du morceau et suit son rythme.
+This program can create a video clip from an audio file.
+The generated clip adapt himself to the fraquencies and the rythm of the chosen track.
 
-# Utilisation du code
+# How to use it
+
+Select an audio track :
+
+You can add your own audio track bu adding it in the "audioFiles" folder.
+When you launch the code, you can choose your audi file among those of the "audioFiles" folder.
+
+The
 
 # Fonctionnement du code
 
