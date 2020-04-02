@@ -5,6 +5,12 @@ The generated clip adapt himself to the fraquencies and the rythm of the chosen 
 
 # Requirements
 
+Python version : 3.6
+
+Python packages : tensorflow, tensorflow-hub, numpy, cv2, librosa, pandas, scikit-learn, Pillow, scipy, ffmpeg.
+
+If you want to run the program using a GPU, here are some information : https://www.tensorflow.org/install/gpu
+
 # How to use it
 
 Launch "main.py".
