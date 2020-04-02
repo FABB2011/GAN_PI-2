@@ -3,6 +3,8 @@
 This program can create a video clip from an audio file.
 The generated clip adapt himself to the fraquencies and the rythm of the chosen track.
 
+# Requirements
+
 # How to use it
 
 Launch "main.py".
