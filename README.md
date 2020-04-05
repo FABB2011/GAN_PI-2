@@ -9,7 +9,7 @@ Python version : 3.6 or 3.7 (you can test with others, it should work).
 
 Python packages : tensorflow, tensorflow-hub, numpy, open-cv, librosa, pandas, scikit-learn, Pillow, scipy, ffmpeg and their dependencies.
 
-install ffmpeg :
+FFmpeg should be installed :
 
 linux : sudo apt install ffmpeg
 mac : brew install ffmpeg
