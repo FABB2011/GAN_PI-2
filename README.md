@@ -12,6 +12,7 @@ Python packages : tensorflow, tensorflow-hub, numpy, open-cv, librosa, pandas, s
 FFmpeg should be installed :
 
 linux : sudo apt install ffmpeg
+
 mac : brew install ffmpeg
 
 If you want to run the program using a GPU, here are some information : https://www.tensorflow.org/install/gpu
