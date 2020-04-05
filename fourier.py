@@ -5,6 +5,7 @@ import numpy as np
 import random
 import classes
 import create_images
+from sklearn import preprocessing
 np.set_printoptions(threshold=np.inf)
 
 
@@ -47,8 +48,8 @@ def scale_rand(data, nb_images, shuffle):
         for j in range(len(data[i])):
             if data[i][j] > 1:
                 data[i][j] = 1.0
-        data[i] = 2 * ((data[i] - min(data[i])) / (max(data[i]) - min(data[i]))) - 1
-        # the data are shuffled
+        for j in range(len(data[i])):
+            data[i][j] = 2 * ((data[i][j] - min(data[i])) / (max(data[i]) - min(data[i]) + 0.00001)) - 1
         random.Random(shuffle).shuffle(data[i])
     return data
 
@@ -56,7 +57,6 @@ def scale_rand(data, nb_images, shuffle):
 # give to each frame an image type (a class) depending on their cluster
 def create_classes(data, clusters):
     for i in range(len(data)):
-        data[i] = data[i].tolist()
         classe = eval('classes.classes' + str(clusters[i]))
         truncation = eval('classes.truncation' + str(clusters[i]))
         data[i].append(classe)

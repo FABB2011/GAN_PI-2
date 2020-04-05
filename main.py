@@ -3,91 +3,93 @@ import create_video
 import add_audio
 import os
 import random
+import change_video_resolution
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-liste_sounds = os.listdir(dir_path+'/audioFiles/')
+list_sounds = os.listdir(dir_path+'/audioFiles/')
 
-print('chemin -> ',os.getcwd())
+print('path -> ',os.getcwd())
 
 try:
 	os.mkdir('images')
 	print("Directory images created")
 except FileExistsError:
-	print("Directory images already exists")
+	print("Directory images exists")
 
 try:
 	os.mkdir('audioFiles')
-	print("Directory images created")
+	print("Directory audioFiles created")
 except FileExistsError:
-	print("Directory images already exists")
+	print("Directory audioFiles exists")
 
 print('Welcome to the Gan Clip Generator !\n')
-
-
-
 print('Menu : \n')
 print('1 - Create images')
 print('2 - Create video')
 print('3 - End program')
 
-option = input('Choose the option you want but be sure you have images to make a video : ')
+option = int(input('Choose the option you want but make sure you have images to create a video, if you already created images '
+			   'and you want to create new one, make sure that the "images" file is empty : '))
+ema_period = 15
+shuffle = random.randint(100, 1500)
 
-option = int(option)
-ema_period = 5
-shuffle = random.randint(500, 1500)
+if option == 1:
 
-while option != 3:
-	if option == 1:
-		# create images
+	print('Here is a list of the available sounds :\n')
+	for i in range(len(list_sounds)):
+		print(list_sounds[i])
 
-		print('Here is a list of the available sounds :\n')
-		for i in range(len(liste_sounds)):
-			print(liste_sounds[i])
+	choice_sound = input('\nChoose a sound please (.wav) : ')
 
+	audio_path = dir_path + '/audioFiles/' + str(choice_sound)
+
+	while (choice_sound not in list_sounds):
+		print('Sound not found ! ')
 		choice_sound = input('\nChoose a sound please (.wav) : ')
 
-		audio_path = './audioFiles/' + str(choice_sound)
+	frame_rate = int(input('\nChoose also the frame rate : '))
+	image_number = int(input('\nChoose also the number of images : '))
+	skip = int(input('\nChoose also the number of transitions images (to make the video more fluid) : '))
 
-		while (choice_sound not in liste_sounds):
-			print('Sound not found ! ')
-			choice_sound = input('\nChoose a sound please (.wav) : ')
+	fourier.main(audio_path, frame_rate, skip, image_number, ema_period, shuffle)
 
-		choice_skip = input('\nChoose also the number of transitions images (to make transitions more fluid) : ')
-		skip = int(choice_skip)
+if option == 2:
 
-		choice_image_number = input('\nChoose also the number of images : ')
-		image_number = int(choice_image_number)
+	print('\nMake sure to use the same parameters (frame rate, sound file) you used to create images')
 
-		choice_framerate = input('\nChoose also the framerate : ')
-		frame_rate = int(choice_framerate)
+	resolution = int(input(
+		'\n(list of classic values : 240,360,480,720,1080,1440,2160)\nChoose also the resolution of the final video : \n'))
 
-		fourier.main(audio_path, frame_rate, skip, image_number, ema_period, shuffle)
-		option = input('Choose the option you want but be sure you have images to make a video : ')
-		option = int(option)
+	frame_rate = int(input('\nChoose also the frame rate : '))
 
-	if option == 2:
-		# make a video with the created images
+	choice_sound = input('\nChoose a sound please (.wav) : ')
+	audio_path = dir_path + '/audioFiles/' + str(choice_sound)
 
-		choice_resolution = input(
-			'\n(list of classic values : 240,360,480,720,1080,1440,2160)\nChoose also the resolution of the final video : \n')
-		resolution = int(choice_resolution)
+	images_path = dir_path + '/images/'
+	video_nameSS = 'videoSS.avi'
+	video_pathSS = dir_path + '/videoSS.avi'
+	video_name = 'video.mkv'
+	video_path = dir_path + '/video.mkv'
+	video_name_final = 'video_final.mkv'
 
-		# frame_rate = 20
-		# skip = 1
-		# image_number = 3
-		# images_path = './images/'
-		images_path = dir_path + '/images/'
-		video_path = dir_path + str(choice_sound) + '_video.avi'
-		video_nameSS = str(choice_sound) + '_video.avi'
-		video_name = str(choice_sound) + '_video.mkv'
-		audio_path = dir_path + '/audioFiles/' + str(choice_sound)
+	create_video.main(frame_rate, images_path, video_nameSS)
+	add_audio.main(audio_path, video_pathSS, video_name)
+	change_video_resolution.main(video_path, resolution, video_name_final)
 
-		choice_framerate = input('\nChoose the same framerate that you have chosen for the images : ')
-		frame_rate = int(choice_framerate)
+if option == 3:
+	print('End of the program...')
 
-		create_video.main(frame_rate, images_path, video_nameSS)
-		# add the audio to the video
-		add_audio.main(audio_path, video_path, video_name)
-		option = input('Choose the option you want but be sure you have images to make a video : ')
-		option = int(option)
-print('End of the program...')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
