@@ -5,7 +5,7 @@ The generated clip adapt himself to the frequencies and the rythm of the chosen 
 
 # Requirements
 
-Python version : 3.6, 3.7
+Python version : 3.6 or 3.7 (you can test with others, it should work)
 
 Python packages : tensorflow, tensorflow-hub, numpy, open-cv, librosa, pandas, scikit-learn, Pillow, scipy, ffmpeg and their dependencies.
 
