@@ -17,10 +17,14 @@ mac : brew install ffmpeg
 
 windows: 
 
-1 download ffmped buil here : https://ffmpeg.zeranoe.com/builds/ \n
+1 download ffmped buil here : https://ffmpeg.zeranoe.com/builds/ 
+
 2 unzip the downloaded folder
+
 3 rename it "FFmpeg"
+
 4 paste it in your local disk
+
 5 add a new environment variable for ffmpeg
 
 more information here : https://www.wikihow.com/Install-FFmpeg-on-Windows
