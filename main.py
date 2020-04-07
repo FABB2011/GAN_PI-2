@@ -28,8 +28,8 @@ print('1 - Create images')
 print('2 - Create video')
 print('3 - End program')
 
-option = int(input('Choose the option you want but make sure you have images to create a video, if you already created images '
-			   'and you want to create new one, make sure that the "images" file is empty : '))
+option = int(input('Choose the option you want, but make sure you have images if you want to create a video. If you have already created images '
+			   'and you want to create the images for a new video, make sure that the "images" folder is empty : '))
 ema_period = 15
 shuffle = random.randint(100, 1500)
 
@@ -39,7 +39,7 @@ if option == 1:
 	for i in range(len(list_sounds)):
 		print(list_sounds[i])
 
-	choice_sound = input('\nChoose a sound please (.wav) : ')
+	choice_sound = input('\nPlease choose a sound (.wav) : ')
 
 	audio_path = dir_path + '/audioFiles/' + str(choice_sound)
 
@@ -47,9 +47,9 @@ if option == 1:
 		print('Sound not found ! ')
 		choice_sound = input('\nChoose a sound please (.wav) : ')
 
-	frame_rate = int(input('\nChoose also the frame rate : '))
-	image_number = int(input('\nChoose also the number of images : '))
-	skip = int(input('\nChoose also the number of transitions images (to make the video more fluid) : '))
+	frame_rate = int(input('\nChoose the frame rate : '))
+	image_number = int(input('\nChoose the number of images : '))
+	skip = int(input('\nChoose the number of transitions images (to make the video more fluid) : '))
 
 	fourier.main(audio_path, frame_rate, skip, image_number, ema_period, shuffle)
 
@@ -58,11 +58,11 @@ if option == 2:
 	print('\nMake sure to use the same parameters (frame rate, sound file) you used to create images')
 
 	resolution = int(input(
-		'\n(list of classic values : 240,360,480,720,1080,1440,2160)\nChoose also the resolution of the final video : \n'))
+		'\n(list of classic values : 240,360,480,720,1080,1440,2160)\nChoose the resolution of the final video : \n'))
 
-	frame_rate = int(input('\nChoose also the frame rate : '))
+	frame_rate = int(input('\nChoose the frame rate : '))
 
-	choice_sound = input('\nChoose a sound please (.wav) : ')
+	choice_sound = input('\nPlease choose a sound (.wav) : ')
 	audio_path = dir_path + '/audioFiles/' + str(choice_sound)
 
 	images_path = dir_path + '/images/'
